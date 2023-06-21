@@ -8,34 +8,36 @@ export async function loader({ params }) {
 
 export default function Contact() {
   const { contact } = useLoaderData();
+  const id = window.location.href.substring(window.location.href.lastIndexOf('/') + 1)
+  const details = contact.find(c=> c.id === id)
   return (
     <div id="contact">
       <div>
         <img
-          key={contact.avatar}
-          src={contact.avatar || null}
+          key={details.avatar}
+          src={details.avatar || null}
         />
       </div>
 
       <div>
         <h1>
-          {contact.first || contact.last ? (
+          {details.first || details.last ? (
             <>
-              {contact.first} {contact.last}
+              {details.first} {details.last}
             </>
           ) : (
             <i>No Name</i>
           )}{" "}
-          <Favorite contact={contact} />
+          <Favorite contact={details} />
         </h1>
 
-        {contact.twitter && (
+        {details.twitter && (
           <p>
             <a
               target="_blank"
               href={`https://twitter.com/${contact.twitter}`}
             >
-              {contact.twitter}
+              {details.twitter}
             </a>
           </p>
         )}
